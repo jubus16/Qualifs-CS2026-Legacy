@@ -342,8 +342,19 @@ public class Controleur implements Observable {
             FileReader fr = new FileReader(fichier);
             BufferedReader br = new BufferedReader(fr);
 
+            String nom = br.readLine();
+            instrument.setNomInstrument(nom);
+            String listeTouches = br.readLine();
+            String[] touches = listeTouches.substring(1, listeTouches.length() - 2).split(",");
 
+            for (String touche : touches) {
+                // charger les touches...
+            }
+
+            br.close();
         } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
