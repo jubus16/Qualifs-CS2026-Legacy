@@ -327,7 +327,9 @@ public class Controleur implements Observable {
             FileWriter fw = new FileWriter(fichier);
             BufferedWriter bw = new BufferedWriter(fw);
 
-            bw.write(instrument.toString());
+            bw.write(instrument.getNomInstrument());
+            bw.newLine();
+            bw.write(instrument.getListeTouches()+"");
             bw.flush();
             bw.close();
         } catch (IOException e) {
@@ -336,7 +338,15 @@ public class Controleur implements Observable {
     }
 
     public void chargerInstrument(File fichier) {
-        // todo
+        try {
+            FileReader fr = new FileReader(fichier);
+            BufferedReader br = new BufferedReader(fr);
+
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public void renommerInstrument(String nouveauNom) {
