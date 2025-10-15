@@ -7,8 +7,7 @@ package gui;
 
 import java.io.IOException;
 
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 
 /**
  *
@@ -26,7 +25,7 @@ public class Main {
             e.printStackTrace();
         }
         InterfacePrincipale interfacePrincipale = new InterfacePrincipale();
-        //  interfacePrincipale.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        interfacePrincipale.setExtendedState(JFrame.MAXIMIZED_BOTH);
         interfacePrincipale.setVisible(true);
     }
 

@@ -22,6 +22,7 @@ public class ActionSauvegarderInstrument extends AbstractAction {
 
     public ActionSauvegarderInstrument(InterfacePrincipale interfacePrinc) {
         this.controleur = interfacePrinc.controleur;
+        this.interfacePrincipale = interfacePrinc;
     }
 
     @Override

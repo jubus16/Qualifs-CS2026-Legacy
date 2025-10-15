@@ -12,15 +12,8 @@ import gui.ProprietesTouche;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Point;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
+
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 import java.util.ArrayList;
@@ -69,12 +62,12 @@ public class Controleur implements Observable {
         }
     }
 
-//    public void setVolume(int volume){
-//        MidiChannel[] channels = instrument.getChannels();
-//        for (int i = 0; i < channels.length; ++i){
-//            channels[i].controlChange(7, volume);
-//        }
-//    }
+    public void setVolume(int volume){
+        MidiChannel[] channels = instrument.getChannels();
+        for (int i = 0; i < channels.length; ++i){
+            channels[i].controlChange(7, volume);
+        }
+    }
     public void setMode(Mode nouveauMode) {
         this.modeEnCours = nouveauMode;
     }
@@ -330,7 +323,16 @@ public class Controleur implements Observable {
     }
 
     public void sauvegarderInstrument(File fichier) {
-        // todo
+        try {
+            FileWriter fw = new FileWriter(fichier);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            bw.write(instrument.toString());
+            bw.flush();
+            bw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void chargerInstrument(File fichier) {
@@ -471,12 +473,12 @@ public class Controleur implements Observable {
                             lignes.add(numeroLigne, "");
                             lignes.set(numeroLigne, lignes.get(numeroLigne) + ligne);
                         } else {
-//                        if (numeroLigne == 0) {
-//                            int espaces = lignes.get(lignes.size() - 1).length() - lignes.get(numeroLigne).length();
-//                            for (int i = 0; i != espaces; i++) {
-//                                lignes.set(numeroLigne, lignes.get(numeroLigne) + " ");
-//                            }
-//                        } 
+                        if (numeroLigne == 0) {
+                            int espaces = lignes.get(lignes.size() - 1).length() - lignes.get(numeroLigne).length();
+                            for (int i = 0; i != espaces; i++) {
+                                lignes.set(numeroLigne, lignes.get(numeroLigne) + " ");
+                            }
+                        }
 //pour ajouter des espaces pour alligner les paroles..
 
                             lignes.set(numeroLigne, lignes.get(numeroLigne) + ligne);
@@ -545,7 +547,7 @@ public class Controleur implements Observable {
         Sequencer seq = instrument.getSequenceur();
         seq.setTempoInBPM(composition.getBpm());
 
-        // int tempsPieceSecondes = (int)(seq.getTickLength() * (60000/(seq.getTempoInBPM() * 24)));
+        int tempsPieceSecondes = (int)(seq.getTickLength() * (60000/(seq.getTempoInBPM() * 24)));
         int progresSecondes = (int) (seq.getTickPosition() * (60000 / (seq.getTempoInBPM() * 24000)));
         int progresMinutes = progresSecondes / 60;
         return String.format("%d:%02d", progresMinutes, progresSecondes % 60);

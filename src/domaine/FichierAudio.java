@@ -36,8 +36,7 @@ public class FichierAudio implements Son, java.io.Serializable {
                     if (e.getType() == LineEvent.Type.STOP) {
                         estEnCours = false;
                         controleur.informerObservateurChangementJeu();
-//                        clip.close();
-
+                        clip.close();
                     }
 
                 }
@@ -100,8 +99,7 @@ public class FichierAudio implements Son, java.io.Serializable {
                     if (e.getType() == LineEvent.Type.STOP) {
                         estEnCours = false;
                         controleur.informerObservateurChangementJeu();
-//                        clip.close();
-
+                        clip.close();
                     }
 
                 }
